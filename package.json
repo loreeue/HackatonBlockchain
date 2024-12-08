@@ -10,9 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@react-three/drei": "^9.120.3",
+    "@react-three/fiber": "^8.17.10",
+    "three": "^0.171.0",
     "viem": "^2.21.53"
   },
   "devDependencies": {
+    "@types/node": "^22.10.1",
     "dotenv": "^16.4.7"
   }
 }

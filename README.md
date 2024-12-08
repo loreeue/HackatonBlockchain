@@ -15,21 +15,21 @@ Since both have:
 
 - Brew (Mac) / Chocolatey (Windows)
 - Docker (Docker Desktop)
-- clang y maketools
-- LLVM (con wasm-ld): Disponible desde la versión 15 (llvm@15)
-- Rust cargo
+- rust, cargo y rustup
+- LLVM (con wasm-ld): Disponible desde la versión 15 (`llvm@15`)
 
-## Check to have `wasm-strip` installed
+## Verificar si tenemos `wasm-strip` instalado
 
-Podemos instalarlo con `brew install wabt`
+Si no, podemos instalarlo con `brew install wabt`
 
 ## Instalando Cargo Stylus
 
+- fork / git clone de este repositorio
 - `git submodule update --init --recursive`
 - `cargo install cargo-stylus`
-- `rustup target add wasm32-unknown-unknown`
+- `rustup target add wasm32-unknown-unknown` (**opcional**, solventa un error de target wasm32 not found al hacer make)
 
 ## Validar entorno de desarollo
 
 - `make` para generar el archivo contract.wasm
-- `cargo stylus check --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc` (si tenemos output en verde estamos ok)
+- `cargo stylus check --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc` (si tenemos output en verde estamos listos 🚀🚀)

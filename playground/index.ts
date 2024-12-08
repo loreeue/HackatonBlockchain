@@ -1,30 +1,31 @@
-import { createPublicClient, http, parseAbi, stringToHex } from "viem"
+import { createPublicClient, createWalletClient, http, parseAbi } from "viem"
 import { arbitrumSepolia } from "viem/chains"
+import { privateKeyToAccount } from "viem/accounts"
 import "dotenv/config"
 
-const ABI = parseAbi([
-  "function hola_mundo() view returns (string)",
-  "function calldata_len() view returns (uint256)",
-  "function ping_pong(bytes32) view returns (string)",
-])
+const ABI = parseAbi(["function hola_mundo() public view returns (string)"])
 
-const client = createPublicClient({
+const account = privateKeyToAccount((process as any).env.PRIVATE_KEY)
+
+const client = createWalletClient({
+  chain: arbitrumSepolia,
+  transport: http(),
+  account,
+})
+
+const publicClient = createPublicClient({
   chain: arbitrumSepolia,
   transport: http(),
 })
 
-// https://sepolia.arbiscan.io/address/0x6a5a8573fe27c42ce960dcb7a19cf957f0e8f837
-const CONTRACT_ADDRESS = "0x6a5a8573fe27c42ce960dcb7a19cf957f0e8f837"
+const CONTRACT_ADDRESS = "0x2df13fd774f887a7733ecb26c3e2791fbcaa898c"
 
-async function main() {
-  const result = await client.readContract({
+async function read() {
+  const result = await publicClient.readContract({
     abi: ABI,
     address: CONTRACT_ADDRESS,
-    functionName: "ping_pong",
-    args: [stringToHex("pong", { size: 32 })],
+    functionName: "hola_mundo",
   })
 
   console.debug(`Contract: ${result}`)
 }
-
-main()
