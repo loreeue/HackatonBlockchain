@@ -76,11 +76,15 @@
    npm install wagmi @wagmi/core ethers
    npm install
    ```
-10. Ejecutar el frontend:
+10. Instalar las dependencias de Pinata:
+   npm install ipfs-http-client @pinata/sdk
+
+
+11. Ejecutar el frontend:
     ```bash
     make frontend
     ```
-11. Abrir la web en el navegador: [http://localhost:3000/devBook](http://localhost:3000/devBook).
+12. Abrir la web en el navegador: [http://localhost:3000/](http://localhost:3000/).
 
 ---
 
