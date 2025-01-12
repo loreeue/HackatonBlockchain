@@ -53,7 +53,7 @@ ArbResult store_metadata(uint8_t *input, size_t len) {
     return _return_success_bebi32(input, 32);
 }
 
-ArbResult get_book() {
+/*ArbResult get_book() {
     uint8_t *slot_address = (uint8_t *)(STORAGE_SLOT_BOOK + 0);
     storage_load_bytes32(slot_address, buf_out);
     if (bebi32_is_zero(buf_out)) {
@@ -69,7 +69,7 @@ ArbResult get_metadata() {
         return _return_short_string(Failure, "MetadataNotFound");
     }
     return _return_success_bebi32(buf_out, 32);
-}
+}*/
 
 int handler(size_t argc) {
     uint8_t argv[argc];
@@ -78,8 +78,8 @@ int handler(size_t argc) {
     FunctionRegistry registry[] = {
         {to_function_selector("store_book(bytes32)"), store_book},
         {to_function_selector("store_metadata(bytes32)"), store_metadata},
-        {to_function_selector("get_book()"), get_book},
-        {to_function_selector("get_metadata()"), get_metadata},
+        /*{to_function_selector("get_book()"), get_book},
+        {to_function_selector("get_metadata()"), get_metadata},*/
     };
 
     uint32_t signature = *((uint32_t *)argv);

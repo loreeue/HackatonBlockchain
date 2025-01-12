@@ -6,8 +6,8 @@ import "dotenv/config";
 const ABI = parseAbi([
   "function store_book(bytes32) returns (bytes32)",
   "function store_metadata(bytes32) returns (bytes32)",
-  "function get_book() view returns (bytes32)",
-  "function get_metadata() view returns (bytes32)"
+  /*"function get_book() view returns (bytes32)",
+  "function get_metadata() view returns (bytes32)"*/
 ]);
 
 const account = privateKeyToAccount((process as any).env.PRIVATE_KEY);
@@ -58,7 +58,7 @@ async function storeMetadata(data: string) {
   }
 }
 
-async function getBook() {
+/*async function getBook() {
   try {
     const result = await publicClient.readContract({
       address: CONTRACT_ADDRESS,
@@ -84,7 +84,7 @@ async function getMetadata() {
     console.error("Error getting metadata:", error);
     throw error;
   }
-}
+}*/
 
 async function main() {
   try {
@@ -104,13 +104,13 @@ async function main() {
 
     await new Promise(r => setTimeout(r, 5000));
 
-    console.log("Retrieving book...");
+    /*console.log("Retrieving book...");
     const storedBook = await getBook();
     console.log("Retrieved book hash:", storedBook);
 
     console.log("Retrieving metadata...");
     const storedMetadata = await getMetadata();
-    console.log("Retrieved metadata hash:", storedMetadata);
+    console.log("Retrieved metadata hash:", storedMetadata);*/
   } catch (error) {
     console.error("Main error:", error);
     process.exit(1);

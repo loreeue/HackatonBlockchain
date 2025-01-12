@@ -40,73 +40,92 @@
 
 ---
 
-## 📋 Cómo desplegar la web
+## 💻 Desarrollo del Backend
 
-1. Clonar el repositorio:
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd <NOMBRE_DEL_REPOSITORIO>
-   ```
-2. Actualizar submódulos del repositorio:
-   ```bash
-   git submodule update --init --recursive
-   ```
-3. Instalar `cargo-stylus`:
-   ```bash
-   cargo install cargo-stylus
-   ```
-4. Agregar el objetivo para compilar en WebAssembly:
-   ```bash
-   rustup target add wasm32-unknown-unknown
-   ```
-5. Crear el archivo `.env` en el directorio raíz con el siguiente contenido:
-   ```
-   PRIVATE_KEY=0x<TU_CLAVE_PRIVADA>
-   ```
-6. Cambiar la clave privada en el paso 5 del `Makefile`.
-7. Compilar y desplegar:
-   ```bash
-   make re
-   cargo stylus check --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc
-   cargo stylus deploy --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc --cargo-stylus-version 0.5.3 --private-key 0x<TU_CLAVE_PRIVADA>
-   ```
-8. Actualizar las direcciones del contrato en `index.ts` y `page.tsx`.
-9. Instalar las dependencias del frontend:
-   ```bash
-   npm install wagmi @wagmi/core ethers
-   npm install
-   ```
-10. Instalar las dependencias de Pinata:
-   npm install ipfs-http-client @pinata/sdk
+El backend maneja la lógica para almacenar y recuperar libros en la blockchain y en **IPFS**. Este servicio permite:
+1. Subir libros al sistema IPFS a través de la API de **Pinata.cloud** y obtener un **hash CID** único.
+2. Guardar el hash CID en un contrato inteligente en la blockchain (Ethereum/Arbitrum) como una URL.
+3. Proveer una **API REST** para interactuar con estos datos, permitiendo a los usuarios subir libros, consultar los libros disponibles y recuperar sus metadatos.
 
-
-11. Ejecutar el frontend:
-    ```bash
-    make frontend
-    ```
-12. Abrir la web en el navegador: [http://localhost:3000/](http://localhost:3000/).
+### Principales tecnologías:
+- **Node.js** con **Express** para manejar solicitudes y lógica del backend.
+- **Pinata SDK** para subir libros a IPFS.
+- **Ethers.js** para interactuar con contratos inteligentes en la blockchain.
 
 ---
 
-## 💻 Tecnologías utilizadas
+## 💻 Desarrollo del Frontend
 
-### Almacenamiento
-- **IPFS con Pinata.cloud:** Para almacenamiento descentralizado, escalable y eficiente.
+El frontend proporciona una interfaz gráfica moderna y fácil de usar para interactuar con los datos almacenados en la blockchain e IPFS. Sus funcionalidades incluyen:
+1. Consultar los libros disponibles desde la blockchain.
+2. Mostrar la información de cada libro en un formato visualmente atractivo.
+3. Permitir que los usuarios descarguen los libros directamente desde IPFS.
 
-### Blockchain
-- **Ethereum / Arbitrum:** Para la gestión de contratos inteligentes y la validación de información.
+### Principales tecnologías:
+- **React** con **Next.js** para una experiencia fluida y responsiva.
+- **Tailwind CSS** para un diseño moderno y estético.
+- **Wagmi.js** y **ethers.js** para conectarse con la blockchain y manejar transacciones.
 
-### Inteligencia Artificial
-- **Modelos de lenguaje avanzado (GPT, BERT):** Para interacción y enseñanza.
-- **NLP y técnicas de aprendizaje profundo:** Para análisis y síntesis de conocimiento.
+---
 
-### Frontend
-- **React y Next.js:** Para una interfaz moderna y fácil de usar.
-- **Tailwind CSS:** Para un diseño visual atractivo.
+## 📋 Cómo desplegar la web
 
-### Backend
-- **Node.js:** Para el manejo de lógica del servidor y APIs.
-- **Express:** Para gestionar solicitudes entre el frontend y la blockchain.
+1. Clonar el repositorio:
+
+```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd <NOMBRE_DEL_REPOSITORIO>
+```
+2. Actualizar submódulos del repositorio:
+
+```bash
+   git submodule update --init --recursive
+```
+3. Instalar cargo-stylus:
+
+```bash
+   cargo install cargo-stylus
+```
+4. Agregar el objetivo para compilar en WebAssembly:
+
+```bash
+   rustup target add wasm32-unknown-unknown
+```
+5. Crear el archivo .env en el directorio raíz con el siguiente contenido:
+```
+PRIVATE_KEY=0x<TU_CLAVE_PRIVADA>
+PINATA_API_KEY=<TU_API_KEY_PINATA>
+PINATA_SECRET_API_KEY=<TU_API_SECRET_PINATA>
+RPC_URL=<URL_RPC_DE_ETHEREUM>
+CONTRACT_ADDRESS=<DIRECCION_DEL_CONTRATO_INTELIGENTE>
+```
+
+6. Cambiar la clave privada en el paso 5 del Makefile.
+7. Compilar y desplegar:
+
+```bash
+   make re
+   cargo stylus check --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc
+   cargo stylus deploy --wasm-file ./contract.wasm -e https://sepolia-rollup.arbitrum.io/rpc --cargo-stylus-version 0.5.3 --private-key 0x<TU_CLAVE_PRIVADA>
+```
+8. Actualizar las direcciones del contrato en index.ts y page.tsx.
+9. Instalar las dependencias del frontend:
+
+```bash
+   npm install wagmi @wagmi/core ethers
+   npm install
+```
+10. Instalar las dependencias de Pinata:
+```bash
+   npm install ipfs-http-client @pinata/sdk
+```
+
+11. Ejecutar el frontend:
+
+```bash
+    make frontend
+```
+12. Abrir la web en el navegador: [http://localhost:3000/](http://localhost:3000/).
 
 ---
 
